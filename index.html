@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recycling Guide</title>
+  <style>
+    body {
+      color: lightgreen;
+      /*background-image: url("https://watchandlearn.scholastic.com/content/dam/classroom-magazines/watchandlearn/videos/animals-and-plants/plants/what-are-plants-/What-Are-Plants.jpg");*/
+      /*background-size: cover; */
+      /*background-position: center;*/
+      /*background-repeat: no-repeat;*/
+    }
+  </style>
+</head>
+<body>
+  <h1>Recycling Guide</h1>
+
+  <input id="materialInput" placeholder="Enter an item, such as a can or bottle">
+  <button id="searchButton">Search</button>
+
+  <div id="result"></div>
+
+  <script>
+    const materials = {
+      aluminum: {
+        howToRecycle: "Rinse the can and place it loose in your recycling bin.",
+        benefits: "Recycling aluminum saves energy and reduces the need to mine new materials."
+      },
+      glass: {
+        howToRecycle: "Remove food waste and lids or caps that are not made of glass. Paper labels can stay on the container.",
+        benefits: "Glass can be recycled many times without losing its quality."
+      },
+      plastic: {
+        howToRecycle: "Check the recycling number on the item and follow your local guidelines.",
+        benefits: "Recycling plastic reduces pollution and conserves resources."
+      },
+      paper: {
+        howToRecycle: "Remove any non-paper materials and place it in your recycling bin.",
+        benefits: "Recycling paper saves trees and reduces landfill waste."
+      },
+      cardboard: {
+        howToRecycle: "Flatten cardboard boxes, remove tape and plastic, and keep the cardboard dry before recycling it.",
+        benefits: "Recycling cardboard saves trees, energy, and landfill space."
+      },
+      battery: {
+        howToRecycle: "Do not place batteries in your household recycling or trash. Take them to a battery drop-off location.",
+        benefits: "Proper battery recycling recovers valuable metals and helps prevent fires and harmful chemicals from entering the environment."
+      },
+      electronics: {
+        howToRecycle: "Take electronics to an electronics recycling center or a retailer that accepts e-waste. Remove personal data first.",
+        benefits: "Recycling electronics recovers useful materials and keeps hazardous substances out of landfills."
+      },
+      clothing: {
+        howToRecycle: "Donate wearable clothing or take damaged clothing to a textile collection point. Do not put clothing in your recycling bin.",
+        benefits: "Reusing and recycling clothing saves water and energy and reduces textile waste."
+      }
+    };
+
+    const aliases = {
+      can: "aluminum",
+      soda: "aluminum",
+      bottle: "plastic",
+      newspaper: "paper",
+      box: "cardboard",
+      batteries: "battery",
+      phone: "electronics",
+      computer: "electronics",
+      clothes: "clothing"
+    };
+
+    const input = document.getElementById("materialInput");
+    const searchButton = document.getElementById("searchButton");
+    const result = document.getElementById("result");
+
+    function showInfo() {
+      const enteredName = input.value.trim().toLowerCase();
+      const materialName = aliases[enteredName] || enteredName;
+      const material = materials[materialName];
+
+      if (!material) {
+        result.textContent = "Material not found. Try paper, cardboard, plastic, glass, aluminum, batteries, electronics, or clothing.";
+        return;
+      }
+
+      result.replaceChildren();
+
+      const heading = document.createElement("h2");
+      heading.textContent = materialName;
+      result.appendChild(heading);
+
+      const howToHeading = document.createElement("h3");
+      howToHeading.textContent = "How to recycle it";
+      result.appendChild(howToHeading);
+
+      const howToText = document.createElement("p");
+      howToText.textContent = material.howToRecycle;
+      result.appendChild(howToText);
+
+      const benefitsHeading = document.createElement("h3");
+      benefitsHeading.textContent = "Benefits of recycling it";
+      result.appendChild(benefitsHeading);
+
+      const benefitsText = document.createElement("p");
+      benefitsText.textContent = material.benefits;
+      result.appendChild(benefitsText);
+
+      const note = document.createElement("p");
+      note.textContent = "Recycling rules vary by location. Check your local recycling provider for the final instructions.";
+      result.appendChild(note);
+    }
+
+    searchButton.addEventListener("click", showInfo);
+    input.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        showInfo();
+      }
+    });
+  </script>
+</body>
+</html>
